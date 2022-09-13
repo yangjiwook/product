@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>상품 전체 목록</title>
+  <style>
+    table {
+      border: 1px solid;
+      border-collapse: collapse;
+    }
+
+    td,
+    th {
+      border: 1px solid;
+    }
+  </style>
+</head>
+
+<body>
+  <h3>상품 전체 목록</h3>
+  <hr>
+
+  <table>
+    <colgroup>
+      <col>
+      <col>
+      <col>
+      <col>
+      <col>
+    </colgroup>
+    <thead>
+      <tr>
+        <th>순번</th>
+        <th>아이디</th>
+        <th>상품명</th>
+        <th>수량</th>
+        <th>가격</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr th:each="rec :${list}" th:data-product-id="${rec.pid}">
+        <td>[[${recStat.count}]]</td>
+        <td>[[${rec.pid}]]</td>
+        <td>[[${rec.pname}]]</td>
+        <td>[[${rec.quantity}]]</td>
+        <td>[[${rec.price}]]</td>
+
+      </tr>
+    </tbody>
+  </table>
+
+  <div>
+    <button type="button" id="addBtn" th:text="#{btn.add}">등록</button>
+  </div>
+</body>
+
+<script th:inline="javascript">
+  //등록
+  addBtn.addEventListener('click', e => {
+    console.log('등록');
+    location.href = `/products/add`;
+  });
+
+
+  const $tbody = document.querySelector("table tbody");
+  $tbody.addEventListener('click', e => {
+  console.log(e.target.parentElement.dataset);
+    if (e.target.tagName == 'TD') {
+      console.log(e.target.parentElement.dataset.productId);
+      const productId = e.target.parentElement.dataset.productId;
+      location.href = `/products/${productId}`;
+    }
+  });
+</script>
+
+</html>

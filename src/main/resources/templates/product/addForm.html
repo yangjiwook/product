@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="ko"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>상품등록</title>
+  <style>
+    .errmsg {
+    font-size:0.8em;
+    font-weight:bold;
+    color:red;
+    }
+
+    ul {
+      margin:0;padding:0;
+    }
+    ul, li {
+      text-decoration: none;
+    }
+    li{
+      padding-left: 15px;
+    }
+  </style>
+</head>
+
+<body>
+<h3 th:text="#{title.product.add}">회원등록</h3>
+<hr>
+<form id="frm" action="" method="post" th:object="${form}">
+  <div th:if="${#fields.hasGlobalErrors()}">
+    <p class="errmsg" th:each="err:${#fields.globalErrors()}" th:text="${err}"></p>
+  </div>
+
+  <div>
+    <label for="" th:text="#{label.product.pname}">상품명</label>
+    <input type="text" th:field="*{pname}">
+    <span class="errmsg"></span>
+    <ul th:if="${#fields.hasErrors('pname')}" th:class="errmsg">
+      <li th:each="err : ${#fields.errors('pname')}" th:text="|${errStat.count}.${err}|"/>
+    </ul>
+  </div>
+  <div>
+    <label for="" th:text="#{label.product.quantity}">수량</label>
+    <input type="text" th:field="*{quantity}">
+    <ul th:if="${#fields.hasErrors('quantity')}" th:class="errmsg">
+      <li th:each="err : ${#fields.errors('quantity')}" th:text="|${errStat.count}.${err}|"/>
+    </ul>
+  </div>
+  <div>
+    <label for="" th:text="#{label.product.price}">가격</label>
+    <input type="text" th:field="*{price}">
+    <ul th:if="${#fields.hasErrors('price')}" th:class="errmsg">
+      <li th:each="err : ${#fields.errors('price')}" th:text="|${errStat.count}.${err}|"/>
+    </ul>
+  </div>
+
+  <div>
+    <!-- #{} : 메시지 표현식      -->
+    <button type="submit" th:text="#{btn.add}" id="addBtn">등록</button>
+    <button type="button" th:text="#{btn.list}" th:onclick="|location.href='@{/products/list}'|">목록</button>
+  </div>
+</form>
+
+
+</body>
+</html>

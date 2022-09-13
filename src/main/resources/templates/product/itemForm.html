@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>상품 상세</title>
+</head>
+
+<body>
+
+  <h3>상품 상세</h3>
+  <hr>
+  <form action="" method="" th:object="${form}">
+    <div><label for="">아이디</label><input type="text" readonly th:field="*{pid}"></div>
+    <div><label for="">상품명</label><input type="text" readonly th:field="*{pname}"></div>
+    <div><label for="">수량</label><input type="text" readonly th:field="*{quantity}"></div>
+    <div><label for="">가격</label><input type="text" readonly th:field="*{price}"></div>
+    <div>
+      <button type="button" id="updateBtn" th:text="#{btn.update}">수정</button>
+      <button type="button" id="delBtn" th:text="#{btn.delete}">삭제</button>
+      <button type="button" id="listBtn" th:text="#{btn.list}">목록</button>
+    </div>
+  </form>
+  <script th:inline="javascript">
+    updateBtn.addEventListener('click', e => {
+      console.log('수정');
+      const url = [[@{| /products/ ${ form.pid } /edit|}]];
+      location.href = url;
+    });
+    delBtn.addEventListener('click', e => {
+      console.log('삭제');
+      if (!confirm('삭제하시겠습니까?')) return;
+      location.href = [[@{| /products/ ${ form.pid } /delete|}]];
+    });
+    listBtn.addEventListener('click', e => {
+      console.log('목록');
+      location.href = [[@{/products/list
+    }]];
+    });
+  </script>
+
+
+</body>
+
+</html>
