@@ -29,6 +29,7 @@
 <h3 th:text="#{title.product.add}">상품등록</h3>
 <hr>
 <form id="frm" action="" method="post" th:object="${form}">
+  <!--  오브젝트 에러 : hasGlobalErrors-->
   <div th:if="${#fields.hasGlobalErrors()}">
     <p class="errmsg" th:each="err:${#fields.globalErrors()}" th:text="${err}"></p>
   </div>
@@ -37,6 +38,7 @@
     <label for="" th:text="#{label.product.pname}">상품명</label>
     <input type="text" th:field="*{pname}">
     <span class="errmsg"></span>
+    <!--  필드 에러 : hasErrors  -->
     <ul th:if="${#fields.hasErrors('pname')}" th:class="errmsg">
       <li th:each="err : ${#fields.errors('pname')}" th:text="|${errStat.count}.${err}|"/>
     </ul>

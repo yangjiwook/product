@@ -48,7 +48,13 @@
     </div>
 
     <div><label for="">아이디</label><input type="text" readonly th:field="*{pid}"></div>
-    <div><label for="">상품명</label><input type="text" readonly th:field="*{pname}"></div>
+    <div>
+      <label for="">상품명</label>
+      <input type="text" th:name="quantity"  th:field="*{pname}">
+      <ul th:if="${#fields.hasErrors('pname')}" th:class="errmsg">
+        <li th:each="err : ${#fields.errors('pname')}" th:text="|${errStat.count}.${err}|" />
+      </ul>
+    </div>
     <div>
       <label for="">수량</label>
       <input type="text" th:name="quantity" th:field="*{quantity}">

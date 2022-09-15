@@ -14,6 +14,7 @@ public class AddForm {
   private String pname;
   @NotNull
   @Range(min=1, max=100)
+  //@Positive // 양수 검증
   private Integer quantity;
   @NotNull
   @Min(1)
